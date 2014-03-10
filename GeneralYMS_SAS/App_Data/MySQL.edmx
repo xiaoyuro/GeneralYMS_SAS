@@ -1,0 +1,654 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="generalymsdbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="generalymsdbModelStoreContainer">
+          <EntitySet Name="AffairLine" EntityType="generalymsdbModel.Store.AffairLine" store:Type="Tables" Schema="generalymsdb" />
+          <EntitySet Name="Affairs" EntityType="generalymsdbModel.Store.Affairs" store:Type="Tables" Schema="generalymsdb" />
+          <EntitySet Name="AffairsInfo" EntityType="generalymsdbModel.Store.AffairsInfo" store:Type="Tables" Schema="generalymsdb" />
+          <EntitySet Name="Area" EntityType="generalymsdbModel.Store.Area" store:Type="Tables" Schema="generalymsdb" />
+          <EntitySet Name="AttatchFile" EntityType="generalymsdbModel.Store.AttatchFile" store:Type="Tables" Schema="generalymsdb" />
+          <EntitySet Name="Dic_Education" EntityType="generalymsdbModel.Store.Dic_Education" store:Type="Tables" Schema="generalymsdb" />
+          <EntitySet Name="Dic_Nation" EntityType="generalymsdbModel.Store.Dic_Nation" store:Type="Tables" Schema="generalymsdb" />
+          <EntitySet Name="LineConfig" EntityType="generalymsdbModel.Store.LineConfig" store:Type="Tables" Schema="generalymsdb" />
+          <EntitySet Name="Notice" EntityType="generalymsdbModel.Store.Notice" store:Type="Tables" Schema="generalymsdb" />
+          <EntitySet Name="PersonBase" EntityType="generalymsdbModel.Store.PersonBase" store:Type="Tables" Schema="generalymsdb" />
+          <EntitySet Name="States" EntityType="generalymsdbModel.Store.States" store:Type="Tables" Schema="generalymsdb" />
+          <EntitySet Name="UserList" EntityType="generalymsdbModel.Store.UserList" store:Type="Tables" Schema="generalymsdb" />
+          <EntitySet Name="UserRole" EntityType="generalymsdbModel.Store.UserRole" store:Type="Tables" Schema="generalymsdb" />
+          <EntitySet Name="Window" EntityType="generalymsdbModel.Store.Window" store:Type="Tables" Schema="generalymsdb" />
+          <EntitySet Name="WorkGroup" EntityType="generalymsdbModel.Store.WorkGroup" store:Type="Tables" Schema="generalymsdb" />
+        </EntityContainer>
+        <EntityType Name="AffairLine">
+          <Key>
+            <PropertyRef Name="AffairLineId" />
+          </Key>
+          <Property Name="AffairLineId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AffairLineName" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="AreaId" Type="int" Nullable="false" />
+          <Property Name="IpAddress" Type="varchar" MaxLength="50" />
+          <Property Name="Available" Type="bit" />
+        </EntityType>
+        <EntityType Name="Affairs">
+          <Key>
+            <PropertyRef Name="AffairId" />
+          </Key>
+          <Property Name="AffairId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AffairName" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="AffairCode" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="AreaId" Type="int" Nullable="false" />
+          <Property Name="WindowId" Type="int" Nullable="false" />
+          <Property Name="ConnectLineId" Type="int" Nullable="false" />
+          <Property Name="StateId" Type="varchar" MaxLength="50" />
+          <Property Name="ExpDays" Type="int" />
+          <Property Name="AffairPolicy" Type="text" />
+          <Property Name="AffairCondition" Type="text" />
+          <Property Name="AffairMaterial" Type="text" />
+          <Property Name="AffairFlow" Type="text" />
+          <Property Name="Available" Type="bit" />
+        </EntityType>
+        <EntityType Name="AffairsInfo">
+          <Key>
+            <PropertyRef Name="AffairInfoId" />
+          </Key>
+          <Property Name="AffairInfoId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="TransactType" Type="int" />
+          <Property Name="AffairId" Type="int" Nullable="false" />
+          <Property Name="OperatorId" Type="int" Nullable="false" />
+          <Property Name="BeginTransTime" Type="datetime" />
+          <Property Name="LastTransTime" Type="datetime" />
+          <Property Name="AffairInfoCode" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="StateId" Type="int" />
+          <Property Name="NextFlowOperatorId" Type="int" />
+          <Property Name="AffairDescription" Type="varchar" MaxLength="50" />
+          <Property Name="IsFinish" Type="int" />
+          <Property Name="QueueNum" Type="varchar" MaxLength="20" />
+          <Property Name="SatisfyDegree" Type="varchar" MaxLength="10" />
+          <Property Name="Memo" Type="varchar" MaxLength="500" />
+          <Property Name="Available" Type="bit" />
+        </EntityType>
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="AreaId" />
+          </Key>
+          <Property Name="AreaId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ParentId" Type="int" Nullable="false" />
+          <Property Name="AreaName" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AttatchFile">
+          <Key>
+            <PropertyRef Name="AttatchFileId" />
+          </Key>
+          <Property Name="AttatchFileId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AffairInfoId" Type="int" Nullable="false" />
+          <Property Name="AttatchFileName" Type="varchar" MaxLength="100" />
+          <Property Name="AttatchFileContent" Type="blob" />
+        </EntityType>
+        <EntityType Name="Dic_Education">
+          <Key>
+            <PropertyRef Name="EducationId" />
+          </Key>
+          <Property Name="EducationId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EducationName" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Available" Type="bit" />
+        </EntityType>
+        <EntityType Name="Dic_Nation">
+          <Key>
+            <PropertyRef Name="NationId" />
+          </Key>
+          <Property Name="NationId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NationName" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Available" Type="bit" />
+        </EntityType>
+        <EntityType Name="LineConfig">
+          <Key>
+            <PropertyRef Name="LineConfigId" />
+          </Key>
+          <Property Name="LineConfigId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AffairLineId" Type="int" Nullable="false" />
+          <Property Name="AreaId" Type="int" Nullable="false" />
+          <Property Name="LineAppName" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="LineAppUrl" Type="varchar" Nullable="false" MaxLength="500" />
+          <Property Name="LineAppClassName" Type="varchar" MaxLength="100" />
+          <Property Name="LineAppWindowName" Type="varchar" MaxLength="200" />
+          <Property Name="LineAppUserNameClass" Type="varchar" MaxLength="100" />
+          <Property Name="LineAppPasswordClass" Type="varchar" MaxLength="100" />
+          <Property Name="LineAppLoginBtnClass" Type="varchar" MaxLength="100" />
+          <Property Name="LineAppLoginBtnName" Type="varchar" MaxLength="100" />
+          <Property Name="Available" Type="bit" />
+        </EntityType>
+        <EntityType Name="Notice">
+          <Key>
+            <PropertyRef Name="NoticeId" />
+          </Key>
+          <Property Name="NoticeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PublishUser" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="PublishTimer" Type="datetime" />
+          <Property Name="NoticeTitle" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="NoticeContent" Type="varchar" Nullable="false" />
+          <Property Name="AreaId" Type="int" Nullable="false" />
+          <Property Name="Available" Type="bit" />
+        </EntityType>
+        <EntityType Name="PersonBase">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PersonName" Type="varchar" MaxLength="100" />
+          <Property Name="CertTypeId" Type="int" />
+          <Property Name="CertCode" Type="varchar" MaxLength="50" />
+          <Property Name="Gender" Type="varchar" MaxLength="4" />
+          <Property Name="Birthday" Type="varchar" MaxLength="40" />
+          <Property Name="EducationId" Type="int" />
+          <Property Name="NationId" Type="int" />
+          <Property Name="Address" Type="varchar" MaxLength="200" />
+          <Property Name="ZipCode" Type="varchar" MaxLength="10" />
+          <Property Name="ContactAddress" Type="varchar" MaxLength="200" />
+          <Property Name="WorkAddress" Type="varchar" MaxLength="200" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" />
+          <Property Name="RegisterTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="States">
+          <Key>
+            <PropertyRef Name="StateId" />
+          </Key>
+          <Property Name="StateId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StateName" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Available" Type="bit" />
+        </EntityType>
+        <EntityType Name="UserList">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="UserPass" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="UserRealName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="UserAreaId" Type="int" Nullable="false" />
+          <Property Name="UserRoleId" Type="int" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="4" />
+          <Property Name="DeptName" Type="varchar" MaxLength="50" />
+          <Property Name="HeadShip" Type="varchar" MaxLength="50" />
+          <Property Name="JobNum" Type="varchar" MaxLength="50" />
+          <Property Name="UserPhone" Type="varchar" MaxLength="50" />
+          <Property Name="UserEmail" Type="varchar" MaxLength="50" />
+          <Property Name="UserIp" Type="varchar" MaxLength="50" />
+          <Property Name="Memo" Type="varchar" MaxLength="500" />
+          <Property Name="LastLoginTime" Type="datetime" />
+          <Property Name="Available" Type="bit" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserRoleId" />
+          </Key>
+          <Property Name="UserRoleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserRoleName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="AreaId" Type="int" Nullable="false" />
+          <Property Name="WorkGroupId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="AffairPower" Type="varchar" />
+          <Property Name="ModelPower" Type="varchar" />
+          <Property Name="Available" Type="bit" />
+        </EntityType>
+        <EntityType Name="Window">
+          <Key>
+            <PropertyRef Name="WindowId" />
+          </Key>
+          <Property Name="WindowId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="WindowName" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="AffairLineId" Type="int" Nullable="false" />
+          <Property Name="AreaId" Type="int" Nullable="false" />
+          <Property Name="Available" Type="bit" />
+        </EntityType>
+        <EntityType Name="WorkGroup">
+          <Key>
+            <PropertyRef Name="WorkGroupId" />
+          </Key>
+          <Property Name="WorkGroupId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="WorkGroupName" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="generalymsdbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="YmsDb" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AffairLine" EntityType="generalymsdbModel.AffairLine" />
+          <EntitySet Name="Affairs" EntityType="generalymsdbModel.Affairs" />
+          <EntitySet Name="AffairsInfo" EntityType="generalymsdbModel.AffairsInfo" />
+          <EntitySet Name="Area" EntityType="generalymsdbModel.Area" />
+          <EntitySet Name="AttatchFile" EntityType="generalymsdbModel.AttatchFile" />
+          <EntitySet Name="Dic_Education" EntityType="generalymsdbModel.Dic_Education" />
+          <EntitySet Name="Dic_Nation" EntityType="generalymsdbModel.Dic_Nation" />
+          <EntitySet Name="LineConfig" EntityType="generalymsdbModel.LineConfig" />
+          <EntitySet Name="Notice" EntityType="generalymsdbModel.Notice" />
+          <EntitySet Name="PersonBase" EntityType="generalymsdbModel.PersonBase" />
+          <EntitySet Name="States" EntityType="generalymsdbModel.States" />
+          <EntitySet Name="UserList" EntityType="generalymsdbModel.UserList" />
+          <EntitySet Name="UserRole" EntityType="generalymsdbModel.UserRole" />
+          <EntitySet Name="Window" EntityType="generalymsdbModel.Window" />
+          <EntitySet Name="WorkGroup" EntityType="generalymsdbModel.WorkGroup" />
+        </EntityContainer>
+        <EntityType Name="AffairLine">
+          <Key>
+            <PropertyRef Name="AffairLineId" />
+          </Key>
+          <Property Name="AffairLineId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AffairLineName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="AreaId" Type="Int32" Nullable="false" />
+          <Property Name="IpAddress" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Available" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Affairs">
+          <Key>
+            <PropertyRef Name="AffairId" />
+          </Key>
+          <Property Name="AffairId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AffairName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="AffairCode" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="AreaId" Type="Int32" Nullable="false" />
+          <Property Name="WindowId" Type="Int32" Nullable="false" />
+          <Property Name="ConnectLineId" Type="Int32" Nullable="false" />
+          <Property Name="StateId" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ExpDays" Type="Int32" />
+          <Property Name="AffairPolicy" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="AffairCondition" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="AffairMaterial" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="AffairFlow" Type="String" MaxLength="65535" Unicode="false" FixedLength="false" />
+          <Property Name="Available" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="AffairsInfo">
+          <Key>
+            <PropertyRef Name="AffairInfoId" />
+          </Key>
+          <Property Name="AffairInfoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <Property Name="TransactType" Type="Int32" />
+          <Property Name="AffairId" Type="Int32" Nullable="false" />
+          <Property Name="OperatorId" Type="Int32" Nullable="false" />
+          <Property Name="BeginTransTime" Type="DateTime" />
+          <Property Name="LastTransTime" Type="DateTime" />
+          <Property Name="AffairInfoCode" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="StateId" Type="Int32" />
+          <Property Name="NextFlowOperatorId" Type="Int32" />
+          <Property Name="AffairDescription" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="IsFinish" Type="Int32" />
+          <Property Name="QueueNum" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="SatisfyDegree" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Memo" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="Available" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="AreaId" />
+          </Key>
+          <Property Name="AreaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentId" Type="Int32" Nullable="false" />
+          <Property Name="AreaName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="AttatchFile">
+          <Key>
+            <PropertyRef Name="AttatchFileId" />
+          </Key>
+          <Property Name="AttatchFileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AffairInfoId" Type="Int32" Nullable="false" />
+          <Property Name="AttatchFileName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="AttatchFileContent" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Dic_Education">
+          <Key>
+            <PropertyRef Name="EducationId" />
+          </Key>
+          <Property Name="EducationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EducationName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Available" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Dic_Nation">
+          <Key>
+            <PropertyRef Name="NationId" />
+          </Key>
+          <Property Name="NationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NationName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Available" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="LineConfig">
+          <Key>
+            <PropertyRef Name="LineConfigId" />
+          </Key>
+          <Property Name="LineConfigId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AffairLineId" Type="Int32" Nullable="false" />
+          <Property Name="AreaId" Type="Int32" Nullable="false" />
+          <Property Name="LineAppName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="LineAppUrl" Type="String" Nullable="false" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="LineAppClassName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="LineAppWindowName" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="LineAppUserNameClass" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="LineAppPasswordClass" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="LineAppLoginBtnClass" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="LineAppLoginBtnName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Available" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Notice">
+          <Key>
+            <PropertyRef Name="NoticeId" />
+          </Key>
+          <Property Name="NoticeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PublishUser" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="PublishTimer" Type="DateTime" />
+          <Property Name="NoticeTitle" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="NoticeContent" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="AreaId" Type="Int32" Nullable="false" />
+          <Property Name="Available" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="PersonBase">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="CertTypeId" Type="Int32" />
+          <Property Name="CertCode" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Gender" Type="String" MaxLength="4" Unicode="false" FixedLength="false" />
+          <Property Name="Birthday" Type="String" MaxLength="40" Unicode="false" FixedLength="false" />
+          <Property Name="EducationId" Type="Int32" />
+          <Property Name="NationId" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="ContactAddress" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="WorkAddress" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="RegisterTime" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="States">
+          <Key>
+            <PropertyRef Name="StateId" />
+          </Key>
+          <Property Name="StateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StateName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Available" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="UserList">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="UserPass" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="UserRealName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="UserAreaId" Type="Int32" Nullable="false" />
+          <Property Name="UserRoleId" Type="Int32" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="4" Unicode="false" FixedLength="false" />
+          <Property Name="DeptName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="HeadShip" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="JobNum" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="UserPhone" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="UserIp" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Memo" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="LastLoginTime" Type="DateTime" />
+          <Property Name="Available" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserRoleId" />
+          </Key>
+          <Property Name="UserRoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserRoleName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="AreaId" Type="Int32" Nullable="false" />
+          <Property Name="WorkGroupId" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="AffairPower" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="ModelPower" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="Available" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Window">
+          <Key>
+            <PropertyRef Name="WindowId" />
+          </Key>
+          <Property Name="WindowId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WindowName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="AffairLineId" Type="Int32" Nullable="false" />
+          <Property Name="AreaId" Type="Int32" Nullable="false" />
+          <Property Name="Available" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="WorkGroup">
+          <Key>
+            <PropertyRef Name="WorkGroupId" />
+          </Key>
+          <Property Name="WorkGroupId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkGroupName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="generalymsdbModelStoreContainer" CdmEntityContainer="YmsDb">
+          <EntitySetMapping Name="AffairLine">
+            <EntityTypeMapping TypeName="generalymsdbModel.AffairLine">
+              <MappingFragment StoreEntitySet="AffairLine">
+                <ScalarProperty Name="AffairLineId" ColumnName="AffairLineId" />
+                <ScalarProperty Name="AffairLineName" ColumnName="AffairLineName" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Affairs">
+            <EntityTypeMapping TypeName="generalymsdbModel.Affairs">
+              <MappingFragment StoreEntitySet="Affairs">
+                <ScalarProperty Name="AffairId" ColumnName="AffairId" />
+                <ScalarProperty Name="AffairName" ColumnName="AffairName" />
+                <ScalarProperty Name="AffairCode" ColumnName="AffairCode" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="WindowId" ColumnName="WindowId" />
+                <ScalarProperty Name="ConnectLineId" ColumnName="ConnectLineId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="ExpDays" ColumnName="ExpDays" />
+                <ScalarProperty Name="AffairPolicy" ColumnName="AffairPolicy" />
+                <ScalarProperty Name="AffairCondition" ColumnName="AffairCondition" />
+                <ScalarProperty Name="AffairMaterial" ColumnName="AffairMaterial" />
+                <ScalarProperty Name="AffairFlow" ColumnName="AffairFlow" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AffairsInfo">
+            <EntityTypeMapping TypeName="generalymsdbModel.AffairsInfo">
+              <MappingFragment StoreEntitySet="AffairsInfo">
+                <ScalarProperty Name="AffairInfoId" ColumnName="AffairInfoId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="TransactType" ColumnName="TransactType" />
+                <ScalarProperty Name="AffairId" ColumnName="AffairId" />
+                <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
+                <ScalarProperty Name="BeginTransTime" ColumnName="BeginTransTime" />
+                <ScalarProperty Name="LastTransTime" ColumnName="LastTransTime" />
+                <ScalarProperty Name="AffairInfoCode" ColumnName="AffairInfoCode" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="NextFlowOperatorId" ColumnName="NextFlowOperatorId" />
+                <ScalarProperty Name="AffairDescription" ColumnName="AffairDescription" />
+                <ScalarProperty Name="IsFinish" ColumnName="IsFinish" />
+                <ScalarProperty Name="QueueNum" ColumnName="QueueNum" />
+                <ScalarProperty Name="SatisfyDegree" ColumnName="SatisfyDegree" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Area">
+            <EntityTypeMapping TypeName="generalymsdbModel.Area">
+              <MappingFragment StoreEntitySet="Area">
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AttatchFile">
+            <EntityTypeMapping TypeName="generalymsdbModel.AttatchFile">
+              <MappingFragment StoreEntitySet="AttatchFile">
+                <ScalarProperty Name="AttatchFileId" ColumnName="AttatchFileId" />
+                <ScalarProperty Name="AffairInfoId" ColumnName="AffairInfoId" />
+                <ScalarProperty Name="AttatchFileName" ColumnName="AttatchFileName" />
+                <ScalarProperty Name="AttatchFileContent" ColumnName="AttatchFileContent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dic_Education">
+            <EntityTypeMapping TypeName="generalymsdbModel.Dic_Education">
+              <MappingFragment StoreEntitySet="Dic_Education">
+                <ScalarProperty Name="EducationId" ColumnName="EducationId" />
+                <ScalarProperty Name="EducationName" ColumnName="EducationName" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dic_Nation">
+            <EntityTypeMapping TypeName="generalymsdbModel.Dic_Nation">
+              <MappingFragment StoreEntitySet="Dic_Nation">
+                <ScalarProperty Name="NationId" ColumnName="NationId" />
+                <ScalarProperty Name="NationName" ColumnName="NationName" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LineConfig">
+            <EntityTypeMapping TypeName="generalymsdbModel.LineConfig">
+              <MappingFragment StoreEntitySet="LineConfig">
+                <ScalarProperty Name="LineConfigId" ColumnName="LineConfigId" />
+                <ScalarProperty Name="AffairLineId" ColumnName="AffairLineId" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="LineAppName" ColumnName="LineAppName" />
+                <ScalarProperty Name="LineAppUrl" ColumnName="LineAppUrl" />
+                <ScalarProperty Name="LineAppClassName" ColumnName="LineAppClassName" />
+                <ScalarProperty Name="LineAppWindowName" ColumnName="LineAppWindowName" />
+                <ScalarProperty Name="LineAppUserNameClass" ColumnName="LineAppUserNameClass" />
+                <ScalarProperty Name="LineAppPasswordClass" ColumnName="LineAppPasswordClass" />
+                <ScalarProperty Name="LineAppLoginBtnClass" ColumnName="LineAppLoginBtnClass" />
+                <ScalarProperty Name="LineAppLoginBtnName" ColumnName="LineAppLoginBtnName" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notice">
+            <EntityTypeMapping TypeName="generalymsdbModel.Notice">
+              <MappingFragment StoreEntitySet="Notice">
+                <ScalarProperty Name="NoticeId" ColumnName="NoticeId" />
+                <ScalarProperty Name="PublishUser" ColumnName="PublishUser" />
+                <ScalarProperty Name="PublishTimer" ColumnName="PublishTimer" />
+                <ScalarProperty Name="NoticeTitle" ColumnName="NoticeTitle" />
+                <ScalarProperty Name="NoticeContent" ColumnName="NoticeContent" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonBase">
+            <EntityTypeMapping TypeName="generalymsdbModel.PersonBase">
+              <MappingFragment StoreEntitySet="PersonBase">
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="PersonName" ColumnName="PersonName" />
+                <ScalarProperty Name="CertTypeId" ColumnName="CertTypeId" />
+                <ScalarProperty Name="CertCode" ColumnName="CertCode" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="EducationId" ColumnName="EducationId" />
+                <ScalarProperty Name="NationId" ColumnName="NationId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="ContactAddress" ColumnName="ContactAddress" />
+                <ScalarProperty Name="WorkAddress" ColumnName="WorkAddress" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="RegisterTime" ColumnName="RegisterTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="generalymsdbModel.States">
+              <MappingFragment StoreEntitySet="States">
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserList">
+            <EntityTypeMapping TypeName="generalymsdbModel.UserList">
+              <MappingFragment StoreEntitySet="UserList">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserPass" ColumnName="UserPass" />
+                <ScalarProperty Name="UserRealName" ColumnName="UserRealName" />
+                <ScalarProperty Name="UserAreaId" ColumnName="UserAreaId" />
+                <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+                <ScalarProperty Name="HeadShip" ColumnName="HeadShip" />
+                <ScalarProperty Name="JobNum" ColumnName="JobNum" />
+                <ScalarProperty Name="UserPhone" ColumnName="UserPhone" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="UserIp" ColumnName="UserIp" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRole">
+            <EntityTypeMapping TypeName="generalymsdbModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+                <ScalarProperty Name="UserRoleName" ColumnName="UserRoleName" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="WorkGroupId" ColumnName="WorkGroupId" />
+                <ScalarProperty Name="AffairPower" ColumnName="AffairPower" />
+                <ScalarProperty Name="ModelPower" ColumnName="ModelPower" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Window">
+            <EntityTypeMapping TypeName="generalymsdbModel.Window">
+              <MappingFragment StoreEntitySet="Window">
+                <ScalarProperty Name="WindowId" ColumnName="WindowId" />
+                <ScalarProperty Name="WindowName" ColumnName="WindowName" />
+                <ScalarProperty Name="AffairLineId" ColumnName="AffairLineId" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkGroup">
+            <EntityTypeMapping TypeName="generalymsdbModel.WorkGroup">
+              <MappingFragment StoreEntitySet="WorkGroup">
+                <ScalarProperty Name="WorkGroupId" ColumnName="WorkGroupId" />
+                <ScalarProperty Name="WorkGroupName" ColumnName="WorkGroupName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,25 @@
+﻿<Page x:Class="GeneralYMS_SAS.AppHome"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+	Title="AppHome">
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="44"/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="44"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Image/Home/bg.png" TileMode="Tile" ViewportUnits="Absolute" Viewport="0,0,12,9"/>
+        </Grid.Background>
+        <Button x:Name="btnLeft" Template="{StaticResource LoginBtnStyle}" VerticalAlignment="Center" Tag="/Image/Home/navLeft.png" Width="44" Height="88" Click="btnLeft_Click" />
+
+        <Button x:Name="btnRight" Grid.Column="2" Template="{StaticResource LoginBtnStyle}" VerticalAlignment="Center" Tag="/Image/Home/navRight.png" Width="44" Height="88" Click="btnRight_Click" />
+
+        <WrapPanel x:Name="wpHome" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center"  Margin="28,32" />
+    </Grid>
+</Page>
