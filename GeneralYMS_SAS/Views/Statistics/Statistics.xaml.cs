@@ -70,6 +70,12 @@ namespace GeneralYMS_SAS
 
         private void InitPage()
         {
+            var selectarea = cbStreet.SelectedValue ?? cbArea.SelectedValue ?? cbCity.SelectedValue ?? cbProvince.SelectedValue;
+
+            var areaName = Db.Area.Where(p => p.AreaId == (int)selectarea).FirstOrDefault().AreaName;
+
+            var year = calendar.SelectedDate != null ? calendar.SelectedDate.Value.Year : DateTime.Today.Year;
+            titleAll.TitleText = string.Format("{0}{1}年度受理量统计", areaName, year);
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += (o, a) =>
             {
@@ -182,19 +188,19 @@ namespace GeneralYMS_SAS
         private void cbProvince_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cbCity.ItemsSource = cbProvince.GetChildArea();
-            cbCity.SelectedIndex = 0;
+            //cbCity.SelectedIndex = 0;
         }
 
         private void cbCity_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cbArea.ItemsSource = cbCity.GetChildArea();
-            cbArea.SelectedIndex = 0;
+            //cbArea.SelectedIndex = 0;
         }
 
         private void cbArea_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cbStreet.ItemsSource = cbArea.GetChildArea();
-            cbStreet.SelectedIndex = 0;
+            //cbStreet.SelectedIndex = 0;
         }
 
         private void cbStreet_SelectionChanged(object sender, SelectionChangedEventArgs e)

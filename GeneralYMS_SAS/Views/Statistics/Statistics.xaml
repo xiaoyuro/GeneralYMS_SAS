@@ -88,6 +88,9 @@
                                      SelectedValuePath="AreaId"
                                      IsEditable="True"
                                      IsReadOnly="True"
+                                     EmptyText="全部"
+                                     ClearSelectionButtonContent="全部"
+                                     ClearSelectionButtonVisibility="Visible"
                                      SelectionChanged="cbProvince_SelectionChanged">
                         <telerik:RadComboBox.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -104,12 +107,15 @@
                                      SelectedValuePath="AreaId"
                                      IsEditable="True"
                                      IsReadOnly="True"
+                                     EmptyText="全部"
+                                     ClearSelectionButtonContent="全部"
+                                     ClearSelectionButtonVisibility="Visible"
                                      SelectionChanged="cbCity_SelectionChanged">
-                        <i:Interaction.Triggers>
+                        <!--<i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged" SourceName="cbProvince">
                                 <ei:ChangePropertyAction PropertyName="SelectedIndex" Value="0"/>
                             </i:EventTrigger>
-                        </i:Interaction.Triggers>
+                        </i:Interaction.Triggers>-->
                         <telerik:RadComboBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel />
@@ -125,12 +131,15 @@
                                      SelectedValuePath="AreaId"
                                      IsEditable="True"
                                      IsReadOnly="True"
+                                     EmptyText="全部"
+                                     ClearSelectionButtonContent="全部"
+                                     ClearSelectionButtonVisibility="Visible"
                                      SelectionChanged="cbArea_SelectionChanged">
-                        <i:Interaction.Triggers>
+                        <!--<i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged" SourceName="cbCity">
                                 <ei:ChangePropertyAction PropertyName="SelectedIndex" Value="0"/>
                             </i:EventTrigger>
-                        </i:Interaction.Triggers>
+                        </i:Interaction.Triggers>-->
                         <telerik:RadComboBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel />
@@ -146,12 +155,15 @@
                                      SelectedValuePath="AreaId"
                                      IsEditable="True"
                                      IsReadOnly="True"
+                                     EmptyText="全部"
+                                     ClearSelectionButtonContent="全部"
+                                     ClearSelectionButtonVisibility="Visible"
                                      SelectionChanged="cbStreet_SelectionChanged">
-                        <i:Interaction.Triggers>
+                        <!--<i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged" SourceName="cbArea">
                                 <ei:ChangePropertyAction PropertyName="SelectedIndex" Value="0"/>
                             </i:EventTrigger>
-                        </i:Interaction.Triggers>
+                        </i:Interaction.Triggers>-->
                         <telerik:RadComboBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel />
@@ -170,7 +182,7 @@
                 </Grid.RowDefinitions>
 
                 <Border BorderBrush="{StaticResource BorderBrush}" Background="#41b1e1"   CornerRadius="5,5,0,0"  BorderThickness="0 0 0 1">
-                    <uc:TitleBar Margin="10 4" TitleText="本月受理情况" ImageSource="{StaticResource appbar_people_status}" TitleColor="#FFFFFF" />
+                    <uc:TitleBar x:Name="titleAll" Margin="10 4" TitleText="本月受理情况" ImageSource="{StaticResource appbar_people_status}" TitleColor="#FFFFFF" />
                 </Border>
 
 
@@ -225,7 +237,7 @@
                                      Grid.Row="1"  
                                      HorizontalAlignment="Right" 
                                      VerticalAlignment="Top" 
-                                     DateSelectionMode="Year" 
+                                     DateSelectionMode="Year"                                   
                                      Opacity="0" SelectionChanged="calendar_SelectionChanged" />
 
                 <Button x:Name="btnCalendar" 
@@ -255,7 +267,7 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <Border BorderBrush="{StaticResource BorderBrush}" Background="#41b1e1"   CornerRadius="5,5,0,0"  BorderThickness="0 0 0 1">
-                        <uc:TitleBar Margin="10 4" TitleText="本月受理情况" ImageSource="{StaticResource appbar_people_status}" TitleColor="#FFFFFF" />
+                        <uc:TitleBar  Margin="10 4" TitleText="本月受理情况" ImageSource="{StaticResource appbar_people_status}" TitleColor="#FFFFFF" />
                     </Border>
 
 

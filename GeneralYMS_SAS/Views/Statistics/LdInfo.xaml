@@ -162,7 +162,7 @@
                                         <telerikCharting:AxisX StripLinesVisibility="Collapsed" />
                                     </telerikCharting:ChartArea.AxisX>
                                     <telerikCharting:ChartArea.AxisY>
-                                        <telerikCharting:AxisY StripLinesVisibility="Collapsed" />
+                                        <telerikCharting:AxisY MinorTicksVisibility="Collapsed" StripLinesVisibility="Collapsed" />
                                     </telerikCharting:ChartArea.AxisY>
                                 </telerikCharting:ChartArea>
                             </telerikCharting:ChartDefaultView.ChartArea>
