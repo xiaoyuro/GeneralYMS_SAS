@@ -10,8 +10,7 @@
 namespace GeneralYMS_SAS.App_Data
 {
     using System;
-    using System.Collections.Generic;
-    
+
     public partial class Dic_Education
     {
         public int EducationId { get; set; }

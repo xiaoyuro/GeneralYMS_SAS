@@ -1,57 +1,52 @@
-﻿using GeneralYMS_SAS.App_Data;
-using GeneralYMS_SAS.Model;
-using GeneralYMS_SAS.ViewModel;
-using MahApps.Metro.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
+using GeneralYMS_SAS.App_Data;
+using GeneralYMS_SAS.Model;
+using GeneralYMS_SAS.ViewModel;
+using MahApps.Metro.Controls;
 using Telerik.Windows.Controls;
-using Telerik.Windows.Controls.GridView;
 
 namespace GeneralYMS_SAS
 {
     /// <summary>
-    /// Statistics.xaml 的交互逻辑
+    ///     Statistics.xaml 的交互逻辑
     /// </summary>
     public partial class LdInfo : MetroWindow
     {
-        YmsDb Db;
+        private readonly YmsDb _db;
 
-        UserList LoginUser;
+        private readonly UserList _loginUser;
 
-        List<Affairs> MyAffairs;
+        private readonly List<AffairsInfo> _myAffairInfo;
 
-        List<AffairsInfo> MyAffairInfo;
+        private readonly List<AffairLine> _myAffairLine;
 
-        List<AffairLine> MyAffairLine;
-
-        string MyWorkGroup;
+        private readonly List<Affairs> _myAffairs;
 
         public LdInfo()
         {
             InitializeComponent();
 
-            Db = new YmsDb();
+            _db = new YmsDb();
 
-            LoginUser = App.Current.Resources["MyUser"] as UserList;
+            _loginUser = Application.Current.Resources["MyUser"] as UserList;
 
-            MyAffairs = Db.Affairs.ToList();
+            _myAffairs = _db.Affairs.ToList();
 
-            MyWorkGroup = "1|2|3";
-
-            DateTime FirstDay = DateTime.Now.AddDays(-DateTime.Now.Day + 1);
+            var firstDay = DateTime.Now.AddDays(-DateTime.Now.Day + 1);
 
             //DateTime LastDay = DateTime.Now.AddMonths(1).AddDays(-DateTime.Now.AddMonths(1).Day);
 
             //MyAffairInfo = Db.AffairsInfo.Where(x => x.OperatorId == LoginUser.UserId && x.LastTransTime >= FirstDay).AsEnumerable().Distinct(new AffairInfoCodeComparer()).ToList();
-            
-            MyAffairInfo = Db.AffairsInfo.Where(x => x.OperatorId == LoginUser.UserId).AsEnumerable().Distinct(new AffairInfoCodeComparer()).ToList();
 
-            MyAffairLine = Db.AffairLine.Where(x => x.AreaId == 0).ToList();
+            _myAffairInfo = _db.AffairsInfo.Where(x => x.OperatorId == _loginUser.UserId)
+                                           .AsEnumerable().Distinct(new AffairInfoCodeComparer()).ToList();
+
+            _myAffairLine = _db.AffairLine.Where(x => x.AreaId == 0).ToList();
 
             Loaded += Statistics_Loaded;
         }
@@ -64,17 +59,14 @@ namespace GeneralYMS_SAS
 
         private void InitPage()
         {
-            List<ChartDataClass> BarData = new List<ChartDataClass>();
+            var barData = new List<ChartDataClass>();
 
-            BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += (o, a) =>
-            {
-                BarData = BindBar();
-            };
+            var worker = new BackgroundWorker();
+            worker.DoWork += (o, a) => { barData = BindBar(); };
             worker.RunWorkerCompleted += (o, a) =>
             {
                 //CartesianChart1.Series[0].ItemsSource = BarData;
-                radChart.ItemsSource = BarData;
+                RadChart.ItemsSource = barData;
                 LoadingBar.IsBusy = false;
             };
 
@@ -85,96 +77,104 @@ namespace GeneralYMS_SAS
         private List<ChartDataClass> BindBar()
         {
             //AffairId Group
-            var query = from p in MyAffairInfo
-                        join q in MyAffairs
-                        on p.AffairId equals q.AffairId
-                        group p by new { p.AffairId, q.WindowId } into g
-                        select new
-                        {
-                            AffairId = g.Key.AffairId,
-                            WindowId = g.Key.WindowId,
-                            Count = g == null ? 0 : g.Count()
-                        };
+            var query = from p in _myAffairInfo
+                        join q in _myAffairs
+                            on p.AffairId equals q.AffairId
+                        group p by new { p.AffairId, q.WindowId }
+                            into g
+                            select new
+                            {
+                                g.Key.AffairId,
+                                g.Key.WindowId,
+                                Count = g == null ? 0 : g.Count()
+                            };
 
             //WindowId Group
             var query2 = from p in query
-                         join q in Db.Window
-                         on p.WindowId equals q.WindowId
-                         group p by new { p.WindowId, q.AffairLineId } into g
-                         select new
-                         {
-                             WindowId = g.Key.WindowId,
-                             AffairLineId = g.Key.AffairLineId,
-                             Count = g == null ? 0 : g.Sum(x => x.Count)
-                         };
+                         join q in _db.Window
+                             on p.WindowId equals q.WindowId
+                         group p by new { p.WindowId, q.AffairLineId }
+                             into g
+                             select new
+                             {
+                                 g.Key.WindowId,
+                                 g.Key.AffairLineId,
+                                 Count = g == null ? 0 : g.Sum(x => x.Count)
+                             };
 
-            var result = from p in MyAffairLine
-                         select new ChartDataClass
-                         {
-                             XValue = p.AffairLineName,
-                             YValue = query2.Where(x => x.AffairLineId == p.AffairLineId).Any() ? (double?)query2.Where(x => x.AffairLineId == p.AffairLineId).Sum(x => x.Count) : null
-                         };
+            IEnumerable<ChartDataClass> result = from p in _myAffairLine
+                                                 select new ChartDataClass
+                                                 {
+                                                     XValue = p.AffairLineName,
+                                                     YValue =
+                                                         query2.Any(x => x.AffairLineId == p.AffairLineId)
+                                                             ? (double?)query2.Where(x => x.AffairLineId == p.AffairLineId).Sum(x => x.Count)
+                                                             : null
+                                                 };
 
             return result.ToList();
         }
 
         #region RadCombobox按钮事件
-        private void cbProvince_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void CbProvince_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            cbCity.ItemsSource = cbProvince.GetChildArea();
-            cbCity.SelectedIndex = 0;
+            CbCity.ItemsSource = CbProvince.GetChildArea();
+            CbCity.SelectedIndex = 0;
         }
 
-        private void cbCity_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CbCity_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            cbArea.ItemsSource = cbCity.GetChildArea();
-            cbArea.SelectedIndex = 0;
+            CbArea.ItemsSource = CbCity.GetChildArea();
+            CbArea.SelectedIndex = 0;
         }
 
-        private void cbArea_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CbArea_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            cbStreet.ItemsSource = cbArea.GetChildArea();
-            cbStreet.SelectedIndex = 0;
+            CbStreet.ItemsSource = CbArea.GetChildArea();
+            CbStreet.SelectedIndex = 0;
         }
 
-        private void cbStreet_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CbStreet_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cbStreet.SelectedValue != null)
+            if (CbStreet.SelectedValue != null)
             {
-                App.Current.Resources["MyAreaId"] = (int)cbStreet.SelectedValue;
+                Application.Current.Resources["MyAreaId"] = (int)CbStreet.SelectedValue;
                 //BindGridViewSource();
             }
         }
+
         #endregion
 
         #region 获取Area数据源
+
         /// <summary>
-        /// 获取省市区街四个下拉框列表的数据源，并做相关配置
+        ///     获取省市区街四个下拉框列表的数据源，并做相关配置
         /// </summary>
         private void InitArea()
         {
             //Bind省
-            cbProvince.ItemsSource = Db.Area.Where(p => p.ParentId == 0).ToList();
+            CbProvince.ItemsSource = _db.Area.Where(p => p.ParentId == 0).ToList();
 
             //如果用户区域是"全国"，立刻返回
-            if (LoginUser.UserAreaId == 0)
+            if (_loginUser.UserAreaId == 0)
             {
                 return;
             }
 
             //根据用户的AreaId获取所属省市区街
             //初始化一个省市区街下拉框的列表
-            List<RadComboBox> ComboBoxList = new List<RadComboBox>() { cbProvince, cbCity, cbArea, cbStreet };
+            var comboBoxList = new List<RadComboBox> { CbProvince, CbCity, CbArea, CbStreet };
 
             //获取该Area的父节点并保存到List,获取List的个体数目并绑定到每个RadCombobox并把RadCombobox设为不可用
-            var LoginUserArea = Db.Area.Where(x => x.AreaId == LoginUser.UserAreaId).FirstOrDefault();
-            List<Area> areaList = GetAreaData(LoginUserArea);
-            int areaListCount = areaList.Count;
+            var loginUserArea = _db.Area.FirstOrDefault(x => x.AreaId == _loginUser.UserAreaId);
+            var areaList = GetAreaData(loginUserArea);
+            var areaListCount = areaList.Count;
 
             for (int i = 0; i < areaListCount; i++)
             {
-                ComboBoxList[i].SelectedValue = areaList[i].AreaId;
-                ComboBoxList[i].IsEnabled = false;
+                comboBoxList[i].SelectedValue = areaList[i].AreaId;
+                comboBoxList[i].IsEnabled = false;
             }
         }
 
@@ -187,7 +187,7 @@ namespace GeneralYMS_SAS
         }
 
         //获取父节点的具体实现方法
-        private void GetHighLevelArea(List<Area> areaList, Area area)
+        private void GetHighLevelArea(IList<Area> areaList, Area area)
         {
             //如果父节点是0，代表此Area为省，添加列表并返回
             if (area.ParentId == 0)
@@ -197,18 +197,14 @@ namespace GeneralYMS_SAS
             }
 
             //递归添加父节点到列表，直至父节点是0
-            var data = Db.Area.Where(x => x.AreaId == area.ParentId);
+            var data = _db.Area.Where(x => x.AreaId == area.ParentId);
             if (data.Any())
             {
                 areaList.Insert(0, area);
                 GetHighLevelArea(areaList, data.FirstOrDefault());
             }
         }
+
         #endregion
-
-        private void BindGridViewSource()
-        {
-
-        }
     }
 }

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
-             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:uc="clr-namespace:GeneralYMS_SAS.Views.UserControls"
              StartupUri="/Views/Login/Login.xaml">
@@ -17,6 +17,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <!--==========================================Base===============================================================-->
+            <SolidColorBrush x:Key="BlackBrush" Color="#FFFFFF" />
             <SolidColorBrush Color="#d6d4d4" x:Key="BorderBrush" />
             <SolidColorBrush x:Key="WindowTitleForeground" Color="#FFFBFDFE"/>
             <SolidColorBrush x:Key="WindowTitleBackground" Color="#FF4B9FD8"/>
@@ -467,7 +468,7 @@
             </Style>
 
             <!--圆型按钮-->
-            <Style TargetType="{x:Type Controls:AppBarButton}">
+            <Style TargetType="{x:Type controls:AppBarButton}">
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                 <Setter Property="Background" Value="{DynamicResource ButtonNormalBackground}"/>
                 <Setter Property="BorderBrush" Value="{DynamicResource ButtonNormalBorder}"/>
@@ -482,7 +483,7 @@
                 <Setter Property="Foreground" Value="#0099CC" />
                 <Setter Property="Template">
                     <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Controls:AppBarButton}">
+                        <ControlTemplate TargetType="{x:Type controls:AppBarButton}">
                             <Grid x:Name="grid" Background="#02FFFFFF" Margin="{TemplateBinding Padding}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>

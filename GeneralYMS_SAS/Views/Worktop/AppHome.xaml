@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-	Title="AppHome">
+      Title="AppHome">
 
     <Grid x:Name="LayoutRoot">
         <Grid.ColumnDefinitions>
@@ -16,10 +16,10 @@
         <Grid.Background>
             <ImageBrush ImageSource="/Image/Home/bg.png" TileMode="Tile" ViewportUnits="Absolute" Viewport="0,0,12,9"/>
         </Grid.Background>
-        <Button x:Name="btnLeft" Template="{StaticResource LoginBtnStyle}" VerticalAlignment="Center" Tag="/Image/Home/navLeft.png" Width="44" Height="88" Click="btnLeft_Click" />
+        <Button x:Name="BtnLeft" Template="{StaticResource LoginBtnStyle}" VerticalAlignment="Center" Tag="/Image/Home/navLeft.png" Width="44" Height="88" Click="BtnLeft_Click" />
 
-        <Button x:Name="btnRight" Grid.Column="2" Template="{StaticResource LoginBtnStyle}" VerticalAlignment="Center" Tag="/Image/Home/navRight.png" Width="44" Height="88" Click="btnRight_Click" />
+        <Button x:Name="BtnRight" Grid.Column="2" Template="{StaticResource LoginBtnStyle}" VerticalAlignment="Center" Tag="/Image/Home/navRight.png" Width="44" Height="88" Click="BtnRight_Click" />
 
-        <WrapPanel x:Name="wpHome" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center"  Margin="28,32" />
+        <WrapPanel x:Name="WpHome" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center"  Margin="28,32" />
     </Grid>
 </Page>

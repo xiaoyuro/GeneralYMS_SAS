@@ -1,15 +1,18 @@
-﻿<Controls:MetroWindow x:Class="GeneralYMS_SAS.Login"
+﻿<controls:MetroWindow x:Class="GeneralYMS_SAS.Login"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"  
+                      xmlns:local="clr-namespace:GeneralYMS_SAS.Model"
+                      Title="社区公共服务综合信息平台——统计分析系统"
                       Width="1024"
-                      Title="全国版一门式受理系统——统计分析系统"
+                      Icon="/Image/favicon.ico"
+                      ShowIconOnTitleBar="False"
                       WindowState="Maximized">
 
-    <Controls:MetroWindow.Resources>
+    <controls:MetroWindow.Resources>
         <Thickness x:Key="SmzdBtnMarign">20 0</Thickness>               
-    </Controls:MetroWindow.Resources>
+    </controls:MetroWindow.Resources>
 
     <Grid x:Name="LayoutRoot" >
         <Grid.Background>
@@ -17,15 +20,21 @@
         </Grid.Background>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="30*"/>
-            <RowDefinition Height="70*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="60*"/>
         </Grid.RowDefinitions>
 
         <!--第一行 LOGO-->
-        <Image Source="../../Image/Login/logo.png" Width="954" Height="138" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
-
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <Image Source="../../Image/Login/logo.png" Width="663" Height="144" Margin="-30,0,0,0" HorizontalAlignment="Center"/>
+            <TextBlock HorizontalAlignment="Center" FontSize="18" Foreground="#FFFFFF">
+                <Run Text="版本:" />
+                <Run Text="{x:Static local:AppVersion.Version}" />
+            </TextBlock>
+        </StackPanel>
+        
         <!--第二行 登陆框-->
-        <Grid x:Name="gMain" Grid.Row="1" Margin="0,40,0,0" Width="370" Height="266" HorizontalAlignment="Center" VerticalAlignment="Top" >
+        <Grid Grid.Row="1" Margin="0,40,0,0" Width="370" Height="266" HorizontalAlignment="Center" VerticalAlignment="Top" >
             <Grid.Background>
                 <ImageBrush ImageSource="../../Image/Login/bglogin.png" />
             </Grid.Background>
@@ -43,22 +52,22 @@
                 <Image Source="../../Image/Login/point.png" Width="8" Height="8" Margin="0,0,10,0" />
                 <TextBlock Text="用户名" FontSize="16" FontFamily="黑体" Foreground="#FFFFFF" />
             </StackPanel>
-            <TextBox x:Name="tbUserName" Grid.Row="1" Margin="50 5" Background="Transparent" Foreground="#FFFFFF" />
+            <TextBox x:Name="TbUserName" Grid.Row="1" Margin="50 5" Background="Transparent" Foreground="#FFFFFF" />
 
             <!--密  码-->
             <StackPanel Margin="50,10,50,5" Orientation="Horizontal" Grid.Row="2">
                 <Image Source="../../Image/Login/point.png" Width="8" Height="8" Margin="0,0,10,0" />
                 <TextBlock Text="密  码" FontSize="16" FontFamily="黑体" Foreground="#FFFFFF" />
             </StackPanel>
-            <PasswordBox x:Name="tbPassWord" Grid.Row="3" Margin="50 5" Background="Transparent" Foreground="#FFFFFF" />
+            <PasswordBox x:Name="TbPassWord" Grid.Row="3" Margin="50 5" Background="Transparent" Foreground="#FFFFFF" />
             
             <!--按钮-->
             <StackPanel Grid.Row="4" HorizontalAlignment="Center" Orientation="Horizontal" Style="{StaticResource MyStackPanelStyle}" >
-                <Button x:Name="btnLogin" Content="登录"  Tag="../../Image/Login/btnlogin.png" IsDefault="True" Click="btnLogin_Click" />              
-                <Button x:Name="btnClose" Content="退出"  Tag="../../Image/Login/btnquit.png"  Click="btnClose_Click" />
+                <Button x:Name="BtnLogin" Content="登录"  Tag="../../Image/Login/btnlogin.png" IsDefault="True" Click="BtnLogin_Click" />              
+                <Button x:Name="BtnClose" Content="退出"  Tag="../../Image/Login/btnquit.png"  Click="BtnClose_Click" />
             </StackPanel>
         </Grid>
 
         <telerik:RadBusyIndicator x:Name="LoadingBar"/>
     </Grid>
-</Controls:MetroWindow>
+</controls:MetroWindow>

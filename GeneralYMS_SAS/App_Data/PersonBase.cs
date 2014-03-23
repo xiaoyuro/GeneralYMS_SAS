@@ -10,8 +10,7 @@
 namespace GeneralYMS_SAS.App_Data
 {
     using System;
-    using System.Collections.Generic;
-    
+
     public partial class PersonBase
     {
         public int PersonId { get; set; }

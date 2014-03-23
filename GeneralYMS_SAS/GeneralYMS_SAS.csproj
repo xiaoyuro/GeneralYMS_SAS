@@ -171,6 +171,7 @@
     <Compile Include="Model\AppVersion.cs" />
     <Compile Include="Model\DbHelper.cs" />
     <Compile Include="Model\YMSUI.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModel\StatisticsModel.cs" />
     <Compile Include="Views\Home\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -397,6 +398,9 @@
   <ItemGroup>
     <Resource Include="Image\Statistics\icon_show.png" />
     <Resource Include="Image\Statistics\icon_hide.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\favicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

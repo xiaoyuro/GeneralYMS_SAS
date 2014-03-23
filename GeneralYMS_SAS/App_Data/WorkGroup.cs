@@ -9,9 +9,6 @@
 
 namespace GeneralYMS_SAS.App_Data
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class WorkGroup
     {
         public int WorkGroupId { get; set; }

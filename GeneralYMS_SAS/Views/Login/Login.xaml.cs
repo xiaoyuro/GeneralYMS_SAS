@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Threading;
+using System.Web.Security;
 using System.Windows;
 
 namespace GeneralYMS_SAS
@@ -15,7 +16,7 @@ namespace GeneralYMS_SAS
     /// </summary>
     public partial class Login : MetroWindow
     {
-        YmsDb Db;
+        YmsDb _db;
 
         public Login()
         {
@@ -25,72 +26,74 @@ namespace GeneralYMS_SAS
 
         void Login_Loaded(object sender, RoutedEventArgs e)
         {
-            Db = new YmsDb();
+            _db = new YmsDb();
+
+            Title = "社区公共服务综合信息平台——统计分析系统" + AppVersion.Version;
         }
 
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
             UserLogin();
         }
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void UserLogin()
         {
-            string username = tbUserName.Text;
+            var username = TbUserName.Text;
 
-            string password = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(tbPassWord.Password, "MD5");
+            var password = FormsAuthentication.HashPasswordForStoringInConfigFile(TbPassWord.Password, "MD5");
 
-            IQueryable<UserList> Users = null;
+            IQueryable<UserList> users = null;
 
-            BackgroundWorker worker = new BackgroundWorker();
+            var worker = new BackgroundWorker();
             worker.DoWork += (o, a) =>
             {
-                Users = Db.UserList.Where(p => p.UserName == username && p.UserPass == password);
+                users = _db.UserList.Where(p => p.UserName == username && p.UserPass == password);
                 Thread.Sleep(2000);
             };
 
             worker.RunWorkerCompleted += (o, a) =>
             {
-                CheckUser(Users);
+                CheckUser(users);
 
-                btnLogin.IsEnabled = true;
+                BtnLogin.IsEnabled = true;
                 LoadingBar.IsBusy = false;
             };
 
-            btnLogin.IsEnabled = false;
+            BtnLogin.IsEnabled = false;
             LoadingBar.IsBusy = true;
             worker.RunWorkerAsync();
         }
 
-        private void CheckUser(IQueryable<UserList> Users)
+        private void CheckUser(IQueryable<UserList> users)
         {
             try
             {
-                if (Users.Any())
+                if (users.Any())
                 {
                     //插入登录时间
-                    var LoginUser = Users.FirstOrDefault();
+                    var loginUser = users.FirstOrDefault();
 
-                    var WorkGroup = Db.UserRole.Where(x => x.UserRoleId == LoginUser.UserRoleId).FirstOrDefault().WorkGroupId;
-                    if (!WorkGroup.HasPower("管理员"))
+                    var workGroup = _db.UserRole.FirstOrDefault(x => x.UserRoleId == loginUser.UserRoleId).WorkGroupId;
+                    if (!workGroup.HasPower("管理员"))
                     {
                         this.ShowMessage("无法登录！您没有管理员权限！");
                         return;
                     }
 
-                    LoginUser.LastLoginTime = DateTime.Now;
-                    Db.SaveChanges();
+                    loginUser.LastLoginTime = DateTime.Now;
+                    _db.SaveChanges();
 
                     //保存Cookie
-                    SetSession(LoginUser);
+                    SetSession(loginUser);
 
-                    MainWindow mainWindow = new MainWindow();
+                    var mainWindow = new MainWindow();
                     mainWindow.Show();
-                    this.Close();
+                    Close();
                 }
                 else
                 {
@@ -106,15 +109,15 @@ namespace GeneralYMS_SAS
         private void SetSession(UserList loginUser)
         {
             //1.用户数据
-            App.Current.Resources["MyUser"] = loginUser;
+            Application.Current.Resources["MyUser"] = loginUser;
         }
 
         private void CheckNetwork(string host)
         {
             try
             {
-                Ping ping = new Ping();
-                PingReply reply = ping.Send(host);
+                var ping = new Ping();
+                var reply = ping.Send(host);
                 if (reply.Status == IPStatus.Success)
                 {
                     this.ShowMessage("无法连接到远程数据库或数据库异常，请重新尝试或联系管理员!");

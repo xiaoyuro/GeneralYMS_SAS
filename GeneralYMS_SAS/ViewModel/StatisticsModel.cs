@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using GeneralYMS_SAS.App_Data;
+﻿using GeneralYMS_SAS.App_Data;
 
 namespace GeneralYMS_SAS.ViewModel
 {

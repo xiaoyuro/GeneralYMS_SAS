@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace GeneralYMS_SAS.Model
+﻿namespace GeneralYMS_SAS.Model
 {
     public static class AppVersion
     {
@@ -16,7 +11,7 @@ namespace GeneralYMS_SAS.Model
                     return "Ver"+System.Deployment.Application.ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
                 }
                 else
-                    return "";
+                    return "Developer";
                 
             }
         }
